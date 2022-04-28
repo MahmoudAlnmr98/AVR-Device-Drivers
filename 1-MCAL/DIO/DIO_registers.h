@@ -1,5 +1,5 @@
 /******************************************************
-*Auther: Mahmoud Khaled Alnmr
+*Author: Mahmoud Khaled Alnmr
 *Layer: MCAL
 *SWC: DIO
 *version: 1.00

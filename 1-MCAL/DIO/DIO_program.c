@@ -5,8 +5,8 @@
  *version: 1.00
  ******************************************************/
 
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
+#include "..\Library\STD_TYPES.h"
+#include "..\Library\BIT_MATH.h"
 
 #include "DIO_interface.h"
 #include "DIO_registers.h"

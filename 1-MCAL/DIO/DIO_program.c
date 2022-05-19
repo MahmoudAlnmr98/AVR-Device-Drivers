@@ -116,7 +116,7 @@ uint8 DIO_uint8_SetPortDirection( uint8 copy_uint8_port,
 	{
 	case DIO_uint8_PORTA  : DDRA = copy_uint8_direction; break;
 	case DIO_uint8_PORTB  : DDRB = copy_uint8_direction; break;
-	case DIO_uint8_PORTC  : DDRB = copy_uint8_direction; break;
+	case DIO_uint8_PORTC  : DDRC = copy_uint8_direction; break;
 	case DIO_uint8_PORTD  : DDRD = copy_uint8_direction; break;
 	default: local_uint8_errorState = 1;
 	}
@@ -135,7 +135,7 @@ uint8 DIO_uint8_SetPortValue    ( uint8 copy_uint8_port,
 	case DIO_uint8_PORTB  : PORTB = copy_uint8_value; break;
 	case DIO_uint8_PORTC  : PORTC = copy_uint8_value; break;
 	case DIO_uint8_PORTD  : PORTD = copy_uint8_value; break;
-	default : local_uint8_errorState = 1; break ;
+	default : local_uint8_errorState = 1;
 	}
 
 	return local_uint8_errorState;

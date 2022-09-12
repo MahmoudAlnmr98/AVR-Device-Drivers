@@ -51,6 +51,17 @@
 #define	ADC_SINGLE_ENDED_0V_GND							0b11111
 
 
+
+typedef struct
+{
+	uint8 * channel;
+	uint16 * result;
+	uint8 size;
+	void (*NotificationFunc)(void);
+}chain_t;
+
+
+
 void ADC_void_Init();
 
 uint8 ADC_uint8_GetChannelReading(uint8 copy_uint8_channel);
@@ -59,5 +70,6 @@ uint8 ADC_uint8_StartConversionSynch(uint8 copy_uint8_channel, uint8* copy_puint
 
 uint8 ADC_uint8_StartConversionAsynch(uint8 copy_uint8_channel, uint8* copy_puint8_reading, void (*copy_pv_NotificationFunction)(void));
 
+uint8 ADC_uiny8_StartConversoinAsyn(chain_t *copy_chain);
 
 #endif /* ADC_INTERFACE_H_ */

@@ -38,7 +38,7 @@
  * single conversion mode: clear ADATE bit in ADCSRA
  * free running mode set ADATE bit in ADCSRA
  */
-#define ADC_SINGLE_CONVERSION_MODE		1
+#define ADC_SINGLE_CONVERSION_MODE		0
 #define ADC_FREE_RUNNING_MODE			1
 
 #define ADC_CONVERSION_MODE				ADC_SINGLE_CONVERSION_MODE
@@ -85,7 +85,7 @@
 
 #define ADC_PRESCALAR 				DIVISION_FACTOR_128
 
-
+#define ADMUX_CLEAR					0b11100000
 
 
 

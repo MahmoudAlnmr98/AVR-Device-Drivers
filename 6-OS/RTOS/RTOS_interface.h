@@ -12,7 +12,7 @@
 
 void RTOS_void_Start(void);
 
-uint8 RTOS_uint8_CreateTask(uint8 copy_uint8_priority, uint16 copy_uint16_periodicity, void (*pvTaskFunc)(void));
+uint8 RTOS_uint8_CreateTask(uint8 copy_uint8_priority, uint16 copy_uint16_periodicity, uint16 copy_uint8_firstDelay, void (*pvTaskFunc)(void));
 
 void RTOS_void_suspendTask(uint8 copy_uint8_priority);
 

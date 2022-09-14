@@ -11,8 +11,10 @@
 typedef struct
 {
 	uint16 periodicity;
-	void (*taskFunc)(void);
 	uint8 taskstate;
+	uint16 firstDelay;
+	void (*taskFunc)(void);
+	
 	
 }task_t;
 
@@ -20,5 +22,7 @@ static void Schedular(void);
 
 #define TASK_RUNNING			0
 #define TASK_SUSPENDED			1
+
+#define OFFSET					1
 
 #endif /* RTOS_RTOS_PRIVATE_H_ */

@@ -24,15 +24,16 @@ void RTOS_void_Start(void)
 	Timer0_void_CTC();
 }
 
-uint8 RTOS_uint8_CreateTask(uint8 copy_uint8_priority, uint16 copy_uint16_periodicity, void (*pvTaskFunc)(void))
+uint8 RTOS_uint8_CreateTask(uint8 copy_uint8_priority, uint16 copy_uint16_periodicity, uint16 copy_uint8_firstDelay, void (*pvTaskFunc)(void))
 {
 	uint8 local_uint8_errorStatus = EMPTY_PRIORITY;
 	
 	if(SystemTasks[copy_uint8_priority].taskFunc == NULL)
 	{
 		SystemTasks[copy_uint8_priority].periodicity = copy_uint16_periodicity;
-		SystemTasks[copy_uint8_priority].taskFunc = pvTaskFunc;
 		SystemTasks[copy_uint8_priority].taskstate = TASK_RUNNING;
+		SystemTasks[copy_uint8_priority].firstDelay = copy_uint8_firstDelay;
+		SystemTasks[copy_uint8_priority].taskFunc = pvTaskFunc;
 	}
 	else
 	{
@@ -61,28 +62,32 @@ void RTOS_void_DeleteTask(uint8 copy_uint8_priority)
 
 static void Schedular(void)
 {
-	static uint16 local_uint16_tickCounter = 0;
 	uint8 local_uint8_taskCounter;
-	
-	local_uint16_tickCounter++;
-	
+		
 	/*loop on all tasks to check their periodicity*/
-	for(local_uint8_taskCounter = 0 ; local_uint8_taskCounter < TASK_NUM ; local_uint8_taskCounter++)
+	for(local_uint8_taskCounter = STD_LOW ; local_uint8_taskCounter < TASK_NUM ; local_uint8_taskCounter++)
 	{
 		/*checking if task is running execute it else do nothing*/
 		if (SystemTasks[local_uint8_taskCounter].taskstate == TASK_RUNNING)
 		{
-			if((local_uint16_tickCounter % SystemTasks[local_uint8_taskCounter].periodicity) == 0)
+			if(SystemTasks[local_uint8_taskCounter].firstDelay == STD_LOW)
+			{
+				if(SystemTasks[local_uint8_taskCounter].taskFunc != NULL)
 				{
-					if(SystemTasks[local_uint8_taskCounter].taskFunc != NULL)
-					{
-						SystemTasks[local_uint8_taskCounter].taskFunc();
-					}
-					else
-					{
-						/*do nothing*/
-					}
+					SystemTasks[local_uint8_taskCounter].taskFunc();
+					
+					/*assign the first delay parameter to periodicity -1*/
+					SystemTasks[local_uint8_taskCounter].firstDelay = SystemTasks[local_uint8_taskCounter].periodicity - OFFSET;
 				}
+				else
+				{
+					/*do nothing*/
+				}
+			}
+			else
+			{
+				SystemTasks[local_uint8_taskCounter].firstDelay--;
+			}
 		}
 		else
 		{
